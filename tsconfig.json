@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "outDir": "build",
+        "strict": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es2020",
+        "lib": ["es2020"],
+        "noUnusedLocals": true,
+		"noUnusedParameters": true,
+        "types": ["node", "react"],
+        "preserveConstEnums": true,
+        "removeComments": true,
+        "allowJs": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "jsx": "react"
+    },
+    "include": ["server/**/*", "src/**/*", "test/**/*"],
+    "exclude": ["/node_modules/"]
+}
