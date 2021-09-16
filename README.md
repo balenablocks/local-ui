@@ -27,6 +27,6 @@ Then, navigate to `http://localhost:48485` to view your changes as they happen l
 balena push <DEVICE_LOCAL_IP>
 ```
 
-You may development any part of the Local UI codebase by pushing code as a local mode container onto a device running balenaOS. This mode of development is useful for working with the devices interfaces, such as the network, balena Supervisor's [API](https://www.balena.io/docs/reference/supervisor/supervisor-api/), or `systemd` services, and requires a local installation of [balena CLI](https://www.balena.io/docs/reference/balena-cli/).
+You may develop any part of the Local UI codebase by pushing code as a local mode container onto a device running balenaOS. This mode of development is useful for working with the devices interfaces, such as the network, balena Supervisor's [API](https://www.balena.io/docs/reference/supervisor/supervisor-api/), or `systemd` services, and requires a local installation of [balena CLI](https://www.balena.io/docs/reference/balena-cli/).
 
 For more information about balena's local mode, see balena's [documentation](https://www.balena.io/docs/learn/develop/local-mode/). 
