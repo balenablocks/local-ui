@@ -4,6 +4,10 @@ import path from 'path';
 import { PORT } from './constants';
 import { v1Router } from './v1';
 
+import { addMdnsEntry } from './mdns'
+
+addMdnsEntry(process.env.MDNS_TLD || 'balena.local')
+
 const app = express();
 
 // Middleware
@@ -19,3 +23,4 @@ app.use('/v1', v1Router);
 app.listen(PORT, () => {
 	console.log(`Local UI server listening on port ${PORT}`);
 });
+

@@ -3,9 +3,13 @@ services:
     local-ui:
         restart: "always"
         build: .
+        privileged: true
+        network_mode: host
         labels:
             io.balena.features.supervisor-api: '1'
             io.balena.features.balena-api: '1'
-        network_mode: "host"
+            io.balena.features.dbus: '1'
         ports:
-            - "48485:48485"
+            - "80:80"
+        environment:
+            - 'DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket'

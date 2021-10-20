@@ -1,10 +1,12 @@
 ARG NODE_VERSION=14.17
+ARG BALENA_ARCH=%%BALENA_ARCH%%
 
 # -- Base image --
-FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:$NODE_VERSION as base
+FROM balenalib/${BALENA_ARCH}-debian-node:$NODE_VERSION as base
 WORKDIR /usr/src/app
+
 COPY package*.json ./
-EXPOSE 48485
+EXPOSE 80
 
 # -- Build step --
 FROM base as build
@@ -12,6 +14,7 @@ FROM base as build
 COPY webpack.config.js tsconfig*.json ./
 COPY server ./server
 COPY src ./src
+COPY typings ./typings
 # Install all dependencies including devDependencies
 RUN npm install && npm cache clean --force
 # Build production bundle
@@ -20,6 +23,10 @@ RUN npm run build
 # -- Run --
 FROM base as run
 # Set Node env for optimized webpack bundle
+RUN install_packages \
+    libdbus-glib-1-dev \
+    avahi-utils
+
 ENV NODE_ENV production
 RUN JOBS=MAX npm ci --only=production
 # Copy built files from build step

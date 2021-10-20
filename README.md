@@ -20,7 +20,7 @@ npm run dev
 
 You may develop certain parts of the Local UI codebase on your machine regardless of its architecture. This mode is useful for developing the frontend or some parts of the server.
 
-Then, navigate to `http://localhost:48485` to view your changes as they happen live.
+Then, navigate to `http://localhost/` to view your changes as they happen live.
 
 ### Local mode development
 ```bash
