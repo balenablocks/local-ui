@@ -3,5 +3,5 @@
     "compilerOptions": {
         "outDir": "build/server"
     },
-    "include": ["server/**/*"]
+    "include": ["server/**/*", "typings/**/*"]
 }

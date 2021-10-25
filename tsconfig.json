@@ -16,6 +16,11 @@
         "skipLibCheck": true,
         "jsx": "react"
     },
-    "include": ["server/**/*", "src/**/*", "test/**/*"],
+    "include": [
+        "server/**/*",
+        "src/**/*",
+        "typings/**/*",
+        "test/**/*"
+    ],
     "exclude": ["/node_modules/"]
 }

@@ -29,12 +29,14 @@
     "react"
   ],
   "author": "Christina Wang <christina@balena.io>",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/balenablocks/local-ui/issues"
   },
   "homepage": "https://github.com/balenablocks/local-ui#readme",
   "dependencies": {
+    "bluebird": "^3.7.2",
+    "dbus-native": "^0.4.0",
     "express": "^4.17.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
