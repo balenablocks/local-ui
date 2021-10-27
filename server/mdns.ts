@@ -1,8 +1,29 @@
-import * as Bluebird from 'bluebird';
-import { Message, systemBus } from 'dbus-native';
-import * as os from 'os';
+import * as Bluebird from 'bluebird'
+import { Message, systemBus } from 'dbus-native'
+import * as os from 'os'
+import * as _ from 'lodash'
 
-const dbus = systemBus();
+interface PublishedHosts {
+	group: string
+	hostname: string
+	address: string
+}
+
+const publishedHosts: PublishedHosts[] = []
+
+const findPublishedHosts = (search: object): any => {
+    return _.find(publishedHosts, search)
+}
+
+const addPublishedHost = (host: PublishedHosts) => {
+    publishedHosts.push(host)
+}
+
+const removePublishedHost = (hostname:string) => {
+    return _.remove(publishedHosts, { hostname })
+}
+
+const dbus = systemBus()
 
 const dbusInvoker = (message: Message): PromiseLike<any> => {
     return Bluebird.fromCallback(cb => dbus.invoke(message, cb))
@@ -29,7 +50,10 @@ const addHostAddress = async (
     address: string,
 ): Promise<void> => {
 
-    console.log(`* mdns - adding ${hostname} at address ${address} to local MDNS pool`);
+    // If the hostname is already published with the same address, return
+    if (findPublishedHosts({ hostname, address })) return
+
+    console.log(`* mdns - adding ${hostname} at address ${address} to local MDNS pool`)
 
     const group = await getGroup()
     console.log('* mdns - avahi group:', group)
@@ -49,6 +73,34 @@ const addHostAddress = async (
         interface: 'org.freedesktop.Avahi.EntryGroup',
         member: 'Commit',
     })
+    addPublishedHost({
+        group,
+        hostname,
+        address,
+    })
+}
+
+const removeHostAddress = async (hostname: string): Promise<void> => {
+	// If the hostname doesn't exist, we don't use it
+	const hostDetails = findPublishedHosts({ hostname })
+	if (!hostDetails) return
+
+	console.log(`* mdns = removing ${hostname} at address from local MDNS pool`);
+
+	// Free the group, removing the published address
+	await dbusInvoker({
+		destination: 'org.freedesktop.Avahi',
+		path: hostDetails.group,
+		interface: 'org.freedesktop.Avahi.EntryGroup',
+		member: 'Free',
+	});
+
+	// Remove from the published hosts list
+    removePublishedHost(hostname)
+}
+
+export const removeMdnsEntry = async (hostname: string) => {
+    removeHostAddress(hostname)
 }
 
 export const addMdnsEntry = async (hostname: string) => {
