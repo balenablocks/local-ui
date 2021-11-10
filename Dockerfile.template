@@ -22,16 +22,12 @@ RUN npm run build
 
 # -- Run --
 FROM base as run
-# Set Node env for optimized webpack bundle
 RUN install_packages \
     libdbus-glib-1-dev \
     avahi-utils
-
+# Set Node env for optimized webpack bundle
 ENV NODE_ENV production
 RUN JOBS=MAX npm ci --only=production
 # Copy built files from build step
-COPY --from=build /usr/src/app/build/ ./build/
+COPY --from=build /usr/src/app/build ./build
 CMD ["npm", "start"]
-
-
-

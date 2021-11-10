@@ -7,7 +7,7 @@ module.exports = {
 	mode: process.env.NODE_ENV || 'development',
 	output: {
 		path: path.resolve(__dirname, 'build', 'public'),
-		filename: 'bundle.js'
+		filename: 'bundle.js',
 	},
 	resolve: {
 		extensions: ['.ts', '.tsx', '.json', '.js'],
@@ -27,7 +27,7 @@ module.exports = {
 	],
 	devServer: {
 		proxy: {
-			'/': 'http://localhost/'
+			'/': 'http://localhost/',
 		},
 		compress: true,
 		hot: true,

@@ -1,17 +1,18 @@
 {
   "name": "local-ui",
   "version": "0.0.5",
+  "private": true,
   "description": "A balenaBlock that allows users to gain visibility into their device via local IP by way of a simple web UI.",
   "scripts": {
-    "start": "node build/server/index.js",
+    "start": "NODE_ENV=production node build/server/index.js",
     "prebuild": "npm run clean",
-    "build": "webpack && tsc --project tsconfig.build.json",
+    "build": "NODE_ENV=production webpack && tsc --project tsconfig.build.json",
     "dev": "concurrently --names \"SERVER,CLIENT\" --kill-others-on-fail --restart-tries=3 \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "nodemon --watch server -e ts server/index.ts",
     "dev:client": "webpack serve",
-    "lint": "balena-lint --fix server/ src/ test/ webpack.config.js",
+    "lint": "balena-lint --fix server/ src/ webpack.config.js",
     "clean": "rimraf build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
     "type": "git",
@@ -28,25 +29,39 @@
     "express",
     "react"
   ],
-  "author": "Christina Wang <christina@balena.io>",
+  "contributors": [
+    {
+      "name": "Christina Wang",
+      "email": "christina@balena.io"
+    },
+    {
+      "name": "Flynn Joffray",
+      "email": "flynn@balena.io"
+    }
+  ],
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/balenablocks/local-ui/issues"
   },
   "homepage": "https://github.com/balenablocks/local-ui#readme",
   "dependencies": {
+    "axios": "^0.24.0",
     "bluebird": "^3.7.2",
     "dbus-native": "^0.4.0",
     "express": "^4.17.1",
+    "express-winston": "^4.2.0",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "rendition": "^21.7.0"
+    "rendition": "^21.7.0",
+    "typed-error": "^3.2.1",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@balena/lint": "^6.1.1",
+    "@types/bluebird": "^3.5.36",
     "@types/express": "^4.17.13",
-    "@types/jest": "^27.0.1",
+    "@types/jest": "^27.0.2",
     "@types/lodash": "^4.14.176",
     "@types/node": "^16.9.1",
     "@types/react": "^17.0.21",
@@ -56,9 +71,11 @@
     "husky": "^7.0.2",
     "jest": "^27.2.0",
     "lint-staged": "^11.1.2",
+    "nock": "^13.2.0",
     "nodemon": "^2.0.12",
     "prettier": "^2.4.0",
     "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.7",
     "ts-loader": "^9.2.5",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3",
@@ -67,7 +84,7 @@
     "webpack-dev-server": "^4.2.1"
   },
   "lint-staged": {
-    "*.{ts,tsx}": "balena-lint --fix server/ src/ test/"
+    "*.{ts,tsx}": "balena-lint --fix server/ src/ webpack.config.js"
   },
   "versionist": {
     "publishedAt": "2021-10-27T23:16:32.523Z"
