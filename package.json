@@ -1,6 +1,6 @@
 {
   "name": "local-ui",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "description": "A balenaBlock that allows users to gain visibility into their device via local IP by way of a simple web UI.",
   "scripts": {
@@ -87,6 +87,6 @@
     "*.{ts,tsx}": "balena-lint --fix server/ src/ webpack.config.js"
   },
   "versionist": {
-    "publishedAt": "2021-10-27T23:16:32.523Z"
+    "publishedAt": "2021-11-10T10:14:18.299Z"
   }
 }
