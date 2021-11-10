@@ -8,7 +8,7 @@
         "lib": ["es2020"],
         "noUnusedLocals": true,
 		"noUnusedParameters": true,
-        "types": ["node", "react"],
+        "types": ["node", "react", "jest"],
         "preserveConstEnums": true,
         "removeComments": true,
         "allowJs": true,
@@ -20,7 +20,7 @@
         "server/**/*",
         "src/**/*",
         "typings/**/*",
-        "test/**/*"
+        "tests/**/*"
     ],
     "exclude": ["/node_modules/"]
 }
